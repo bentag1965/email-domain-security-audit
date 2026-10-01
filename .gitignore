@@ -1,0 +1,9 @@
+reports/
+*.log
+*.tmp
+.env
+.env.*
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
