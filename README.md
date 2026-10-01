@@ -12,6 +12,8 @@ The project checks SPF, DMARC, DKIM selectors, MX records, and basic DNS resolut
 - DMARC enforcement assessment
 - DKIM selector probing
 - MX and address-record inspection
+- MTA-STS discovery
+- TLS-RPT discovery
 - Structured JSON reporting
 - PowerShell security tooling
 
@@ -50,9 +52,15 @@ A public DNS audit cannot prove that an entire email environment is secure. A st
 
 - SPF DNS-lookup counting
 - SPF include-chain inspection
-- MTA-STS detection
-- TLS-RPT detection
 - BIMI discovery
 - CSV/HTML reporting
 - batch domain input
 - Pester tests
+
+## Additional Documentation
+
+- [Assessment methodology](docs/methodology.md)
+- [SPF](docs/spf.md)
+- [DMARC](docs/dmarc.md)
+- [DKIM](docs/dkim.md)
+- [Mail transport security](docs/transport-security.md)
