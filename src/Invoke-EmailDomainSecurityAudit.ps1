@@ -85,6 +85,35 @@ if ($dmarcValues.Count -eq 0) {
     }
 }
 
+
+# MTA-STS
+$mtaStsName = "_mta-sts.$domain"
+$mtaStsValues = @(
+    Resolve-DnsSafe -Name $mtaStsName -Type TXT |
+    Where-Object { $_.Strings } |
+    ForEach-Object { $_.Strings -join "" } |
+    Where-Object { $_ -match "^v=STSv1\b" }
+)
+if ($mtaStsValues.Count -gt 0) {
+    $findings += New-Finding "MTA-STS" "Info" "MTA-STS DNS record found" ($mtaStsValues -join " | ") "Confirm the HTTPS policy file is published and current."
+} else {
+    $findings += New-Finding "MTA-STS" "Low" "MTA-STS DNS record not found" "" "Consider MTA-STS if the domain receives mail and transport-policy enforcement is appropriate."
+}
+
+# TLS-RPT
+$tlsRptName = "_smtp._tls.$domain"
+$tlsRptValues = @(
+    Resolve-DnsSafe -Name $tlsRptName -Type TXT |
+    Where-Object { $_.Strings } |
+    ForEach-Object { $_.Strings -join "" } |
+    Where-Object { $_ -match "^v=TLSRPTv1\b" }
+)
+if ($tlsRptValues.Count -gt 0) {
+    $findings += New-Finding "TLS-RPT" "Info" "TLS reporting record found" ($tlsRptValues -join " | ") "Review aggregate TLS reports for delivery and policy failures."
+} else {
+    $findings += New-Finding "TLS-RPT" "Low" "TLS reporting record not found" "" "Consider publishing TLS-RPT alongside MTA-STS to receive transport-layer delivery reports."
+}
+
 # DKIM candidates
 $resolvedSelectors = @()
 foreach ($selector in $DkimSelectors) {
