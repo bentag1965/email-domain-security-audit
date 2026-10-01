@@ -1,0 +1,27 @@
+{
+  "Domain": "example.com",
+  "AuditedAt": "2026-10-01T13:00:00Z",
+  "Findings": [
+    {
+      "Control": "DMARC",
+      "Severity": "High",
+      "Title": "DMARC is monitoring-only",
+      "Evidence": "v=DMARC1; p=none; rua=mailto:dmarc@example.com",
+      "Recommendation": "Validate legitimate senders, then move toward quarantine or reject."
+    },
+    {
+      "Control": "SPF",
+      "Severity": "Info",
+      "Title": "SPF uses hard fail",
+      "Evidence": "v=spf1 include:_spf.example.net -all",
+      "Recommendation": "Continue monitoring authorized senders and DNS lookup count."
+    }
+  ],
+  "Summary": {
+    "Critical": 0,
+    "High": 1,
+    "Medium": 0,
+    "Low": 0,
+    "Info": 1
+  }
+}
